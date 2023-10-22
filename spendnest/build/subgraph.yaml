@@ -1,0 +1,42 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract
+    network: mumbai
+    source:
+      address: "0xeB3dabD0c0166aaB3c28d40de20C35303520FaF9"
+      abi: Contract
+      startBlock: 41510773
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Borrowed
+        - FundWithdraw
+        - PersonalClubDeposit
+        - PublicClubDeposit
+        - SavingsWithdrawn
+        - Transfer
+        - Withdrawal
+      abis:
+        - name: Contract
+          file: Contract/abis/Contract.json
+      eventHandlers:
+        - event: Borrowed(indexed address,indexed uint256,indexed uint256)
+          handler: handleBorrowed
+        - event: FundWithdraw(address,indexed address,indexed uint256,indexed uint256)
+          handler: handleFundWithdraw
+        - event: PersonalClubDeposit(indexed address,indexed uint256,indexed uint256)
+          handler: handlePersonalClubDeposit
+        - event: PublicClubDeposit(indexed address,indexed uint256,indexed uint256)
+          handler: handlePublicClubDeposit
+        - event: SavingsWithdrawn(indexed address,indexed uint256,indexed uint256)
+          handler: handleSavingsWithdrawn
+        - event: Transfer(indexed address,indexed uint256,indexed uint256)
+          handler: handleTransfer
+        - event: Withdrawal(address,indexed uint256,indexed uint256)
+          handler: handleWithdrawal
+      file: Contract/Contract.wasm
